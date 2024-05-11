@@ -46,6 +46,24 @@ class Character {
         throw new Error('Unknown type');
     }
   }
+  levelUp() {
+    if (this.health === 0) {
+      throw new Error('Cannot level up a dead character');
+    }
+
+    this.level += 1;
+    this.attack += Math.round(this.attack * 0.2);
+    this.defence += Math.round(this.defence * 0.2);
+    this.health = 100;
+  }
+
+  damage(points) {
+    this.health -= points * (1 - this.defence / 100);
+    if (this.health < 0) {
+      this.health = 0;
+    }
+  }
+
 }
 
 class Bowman extends Character {

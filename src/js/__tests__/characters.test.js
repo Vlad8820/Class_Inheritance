@@ -84,4 +84,41 @@ describe('Character classes', () => {
       defence: 10,
     });
   });
+
+  test('Character levelUp', () => {
+    const character = new Character('John', 'Bowman');
+    character.levelUp();
+    expect(character).toEqual({
+      name: 'John',
+      type: 'Bowman',
+      health: 100,
+      level: 2,
+      attack: 30,
+      defence: 30,
+    });
+  });
+
+  test('Character levelUp with health equals 0', () => {
+    const character = new Character('John', 'Bowman');
+    character.health = 0;
+    expect(() => character.levelUp()).toThrowError('Cannot level up a dead character');
+  });
+
+  test('Character damage', () => {
+    const character = new Character('John', 'Bowman');
+    character.damage(20);
+    expect(character.health).toBe(85);
+  });
+
+  test('Character damage with defence', () => {
+    const character = new Character('John', 'Bowman');
+    character.damage(20);
+    expect(character.health).toBe(85);
+  });
+
+  test('Character damage with health below 0', () => {
+    const character = new Character('John', 'Bowman');
+    character.damage(200);
+    expect(character.health).toBe(0);
+  });
 });
